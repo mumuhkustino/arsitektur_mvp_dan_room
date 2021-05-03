@@ -10,6 +10,8 @@
     <string name="num_of_data">NUM OF DATA</string>
     <string name="execute">EXECUTE</string>
 
+    <string name="some_error">Some Error Occurred!</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
