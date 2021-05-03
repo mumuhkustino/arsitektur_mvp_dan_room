@@ -9,6 +9,8 @@ import com.google.gson.reflect.TypeToken;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.DbHelper;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Hospital;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Medicine;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.AppConstants;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.CommonUtils;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -38,22 +40,22 @@ public class AppDataManager implements DataManager {
 
         String pathJson;
         if (numOfData < 100000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_10;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_10;
         } else if (numOfData < 500000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_100;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_100;
         } else if (numOfData < 1000000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_500;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_500;
         } else {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_1000;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_1000;
         }
         try {
             Type type = $Gson$Types
                     .newParameterizedTypeWithOwner(null, List.class,
                             Hospital.class);
-//            List<Hospital> hospitalList = gson.fromJson(
-//                    CommonUtils.loadJSONFromAsset(context,
-//                            pathJson),
-//                    type);
+            List<Hospital> hospitalList = gson.fromJson(
+                    CommonUtils.loadJSONFromAsset(context,
+                            pathJson),
+                    type);
             return saveHospitalList(hospitalList);
         } catch (Exception e) {
             return Flowable.just(false);
@@ -77,20 +79,20 @@ public class AppDataManager implements DataManager {
 
         String pathJson;
         if (numOfData < 100000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_10;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_10;
         } else if (numOfData < 500000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_100;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_100;
         } else if (numOfData < 1000000) {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_500;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_500;
         } else {
-//            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_1000;
+            pathJson = AppConstants.SEED_DATABASE_HOSPITALS_1000;
         }
         try {
-//            Type type = new TypeToken<List<Medicine>>(){}.getType();
-//            List<Medicine> medicineList = gson.fromJson(
-//                    CommonUtils.loadJSONFromAsset(context,
-//                            pathJson),
-//                    type);
+            Type type = new TypeToken<List<Medicine>>(){}.getType();
+            List<Medicine> medicineList = gson.fromJson(
+                    CommonUtils.loadJSONFromAsset(context,
+                            pathJson),
+                    type);
             return saveMedicineList(medicineList);
         } catch (Exception e) {
             return Flowable.just(false);
