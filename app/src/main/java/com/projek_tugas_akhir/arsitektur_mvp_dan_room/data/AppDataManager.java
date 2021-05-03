@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.DbHelper;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Hospital;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Medicine;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.ApplicationContext;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.AppConstants;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.CommonUtils;
 
@@ -16,9 +17,11 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 
+@Singleton
 public class AppDataManager implements DataManager {
 
     private static final String TAG = "AppDataManager";
@@ -28,7 +31,8 @@ public class AppDataManager implements DataManager {
     private final DbHelper dbHelper;
 
     @Inject
-    public AppDataManager(Context context, DbHelper dbHelper) {
+    public AppDataManager(@ApplicationContext Context context,
+            DbHelper dbHelper) {
         this.context = context;
         this.dbHelper = dbHelper;
     }
@@ -52,11 +56,12 @@ public class AppDataManager implements DataManager {
             Type type = $Gson$Types
                     .newParameterizedTypeWithOwner(null, List.class,
                             Hospital.class);
-            List<Hospital> hospitalList = gson.fromJson(
-                    CommonUtils.loadJSONFromAsset(context,
-                            pathJson),
-                    type);
-            return saveHospitalList(hospitalList);
+//            List<Hospital> hospitalList = gson.fromJson(
+//                    CommonUtils.loadJSONFromAsset(context,
+//                            pathJson),
+//                    type);
+//            return saveHospitalList(hospitalList);
+            return Flowable.just(false);
         } catch (Exception e) {
             return Flowable.just(false);
         }
@@ -89,11 +94,12 @@ public class AppDataManager implements DataManager {
         }
         try {
             Type type = new TypeToken<List<Medicine>>(){}.getType();
-            List<Medicine> medicineList = gson.fromJson(
-                    CommonUtils.loadJSONFromAsset(context,
-                            pathJson),
-                    type);
-            return saveMedicineList(medicineList);
+//            List<Medicine> medicineList = gson.fromJson(
+//                    CommonUtils.loadJSONFromAsset(context,
+//                            pathJson),
+//                    type);
+//            return saveMedicineList(medicineList);
+            return Flowable.just(false);
         } catch (Exception e) {
             return Flowable.just(false);
         }

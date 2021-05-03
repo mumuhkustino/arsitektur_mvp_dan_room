@@ -24,7 +24,7 @@ public interface MedicineDao {
     void insertAll(List<Medicine> medicineList);
 
     @Delete
-    Flowable<Boolean> delete(Medicine medicine);
+    void delete(Medicine medicine);
 
     @Query("SELECT * FROM medicine WHERE id = :id")
     Flowable<Medicine> load(Long id);
@@ -36,9 +36,9 @@ public interface MedicineDao {
     Flowable<List<Medicine>> loadAll();
 
     @Update
-    Flowable<Boolean> save(Medicine medicine);
+    void save(Medicine medicine);
 
     @Update
-    Flowable<Boolean> saveList(List<Medicine> medicine);
+    void saveList(List<Medicine> medicine);
 
 }

@@ -25,7 +25,7 @@ public class Medicine {
 
     @Expose
     @SerializedName("hospitalId")
-    @ColumnInfo(name = "hospitalId")
+    @ColumnInfo(name = "hospitalId", index = true)
     public Long hospitalId;
 
     @Expose

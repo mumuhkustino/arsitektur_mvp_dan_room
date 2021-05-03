@@ -48,12 +48,28 @@ public class AppDbHelper implements DbHelper {
 
     @Override
     public Flowable<Boolean> deleteHospital(Hospital hospital) {
-        return mAppDatabase.hospitalDao().delete(hospital);
+        return Flowable.fromCallable(() -> {
+            try {
+                mAppDatabase.hospitalDao().delete(hospital);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     @Override
     public Flowable<Boolean> deleteMedicine(Medicine medicine) {
-        return mAppDatabase.medicineDao().delete(medicine);
+        return Flowable.fromCallable(() -> {
+            try {
+                mAppDatabase.medicineDao().delete(medicine);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     @Override

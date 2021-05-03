@@ -23,7 +23,7 @@ public interface HospitalDao {
     void insertAll(List<Hospital> hospitalList);
 
     @Delete
-    Flowable<Boolean> delete(Hospital hospital);
+    void delete(Hospital hospital);
 
     @Query("SELECT * FROM hospital WHERE id = :hospitalId")
     Flowable<Hospital> load(Long hospitalId);
@@ -32,8 +32,8 @@ public interface HospitalDao {
     Flowable<List<Hospital>> loadAll();
 
     @Update
-    Flowable<Boolean> save(Hospital hospital);
+    void save(Hospital hospital);
 
     @Update
-    Flowable<Boolean> saveList(List<Hospital> hospitalList);
+    void saveList(List<Hospital> hospitalList);
 }
