@@ -1,0 +1,2 @@
+rootProject.name='Arsitektur MVP dan Room'
+include ':app'
