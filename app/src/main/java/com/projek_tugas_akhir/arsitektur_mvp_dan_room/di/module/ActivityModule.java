@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.ActivityContext;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.PerActivity;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDAdapter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpPresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpView;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDPagerAdapter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDPresenter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete.DeleteAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert.InsertAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.select.SelectAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update.UpdateAdapter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.AppSchedulerProvider;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.SchedulerProvider;
 
@@ -64,8 +67,23 @@ public class ActivityModule {
     }
 
     @Provides
-    CRUDAdapter provideCRUDAdapter() {
-        return new CRUDAdapter(new ArrayList<>());
+    InsertAdapter provideInsertAdapter() {
+        return new InsertAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    SelectAdapter provideSelectAdapter() {
+        return new SelectAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    UpdateAdapter provideUpdateAdapter() {
+        return new UpdateAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    DeleteAdapter provideDeleteAdapter() {
+        return new DeleteAdapter(new ArrayList<>());
     }
 
     @Provides
