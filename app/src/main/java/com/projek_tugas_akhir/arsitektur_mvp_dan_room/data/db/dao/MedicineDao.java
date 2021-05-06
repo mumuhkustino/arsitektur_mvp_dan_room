@@ -26,13 +26,13 @@ public interface MedicineDao {
     @Delete
     void delete(Medicine medicine);
 
-    @Query("SELECT * FROM medicine WHERE id = :id")
+    @Query("SELECT * FROM medicines WHERE id = :id")
     Flowable<Medicine> load(Long id);
 
-    @Query("SELECT * FROM medicine WHERE hospitalId = :hospitalId")
+    @Query("SELECT * FROM medicines WHERE hospitalId = :hospitalId")
     Flowable<List<Medicine>> loadAllByHospitalId(Long hospitalId);
 
-    @Query("SELECT * FROM medicine")
+    @Query("SELECT * FROM medicines")
     Flowable<List<Medicine>> loadAll();
 
     @Update

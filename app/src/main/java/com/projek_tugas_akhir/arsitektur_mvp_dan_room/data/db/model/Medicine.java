@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(
-        tableName = "medicine",
+        tableName = "medicines",
         foreignKeys = @ForeignKey(
                 entity = Hospital.class,
                 parentColumns = "id",
@@ -19,18 +19,17 @@ import com.google.gson.annotations.SerializedName;
 public class Medicine {
 
     @Expose
-    @SerializedName("id")
     @PrimaryKey
     public Long id;
 
     @Expose
     @SerializedName("hospitalId")
-    @ColumnInfo(name = "hospitalId", index = true)
+    @ColumnInfo(name = "hospitalId")
     public Long hospitalId;
 
     @Expose
     @SerializedName("medicineName")
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "medicineName")
     public String name;
 
 }

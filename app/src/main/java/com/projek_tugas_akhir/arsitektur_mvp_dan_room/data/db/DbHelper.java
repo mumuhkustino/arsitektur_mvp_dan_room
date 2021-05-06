@@ -11,7 +11,11 @@ public interface DbHelper {
 
     Flowable<Boolean> insertHospital(Hospital hospital);
 
+    Flowable<Boolean> insertHospitalList(List<Hospital> hospitalList);
+
     Flowable<Boolean> insertMedicine(Medicine medicine);
+
+    Flowable<Boolean> insertMedicineList(List<Medicine> medicineList);
 
     Flowable<Boolean> deleteHospital(Hospital hospital);
 
@@ -21,7 +25,7 @@ public interface DbHelper {
 
     Flowable<Medicine> loadMedicine(Medicine medicine);
 
-    Flowable<List<Hospital>> getAllHospitals();
+    Flowable<List<Hospital>> getAllHospital();
 
     Flowable<List<Medicine>> getAllMedicine();
 

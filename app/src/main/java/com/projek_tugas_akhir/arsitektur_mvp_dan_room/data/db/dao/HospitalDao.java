@@ -25,10 +25,10 @@ public interface HospitalDao {
     @Delete
     void delete(Hospital hospital);
 
-    @Query("SELECT * FROM hospital WHERE id = :hospitalId")
+    @Query("SELECT * FROM hospitals WHERE id = :hospitalId")
     Flowable<Hospital> load(Long hospitalId);
 
-    @Query("SELECT * FROM hospital")
+    @Query("SELECT * FROM hospitals")
     Flowable<List<Hospital>> loadAll();
 
     @Update

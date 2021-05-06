@@ -7,17 +7,16 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "hospital")
+@Entity(tableName = "hospitals")
 public class Hospital {
 
     @Expose
-    @SerializedName("id")
     @PrimaryKey
     public Long id;
 
     @Expose
     @SerializedName("hospitalName")
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "hospitalName")
     public String name;
 
 }

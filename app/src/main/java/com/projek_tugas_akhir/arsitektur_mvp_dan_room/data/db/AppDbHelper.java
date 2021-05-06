@@ -34,10 +34,36 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Flowable<Boolean> insertHospitalList(List<Hospital> hospitalList) {
+        return Flowable.fromCallable(() -> {
+            try {
+                mAppDatabase.hospitalDao().insertAll(hospitalList);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+    }
+
+    @Override
     public Flowable<Boolean> insertMedicine(Medicine medicine) {
         return Flowable.fromCallable(() -> {
             try {
                 mAppDatabase.medicineDao().insert(medicine);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public Flowable<Boolean> insertMedicineList(List<Medicine> medicineList) {
+        return Flowable.fromCallable(() -> {
+            try {
+                mAppDatabase.medicineDao().insertAll(medicineList);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,7 +109,7 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Flowable<List<Hospital>> getAllHospitals() {
+    public Flowable<List<Hospital>> getAllHospital() {
         return mAppDatabase.hospitalDao().loadAll();
     }
 
@@ -113,7 +139,7 @@ public class AppDbHelper implements DbHelper {
     public Flowable<Boolean> saveHospital(Hospital hospital) {
         return Flowable.fromCallable(() -> {
             try {
-                mAppDatabase.hospitalDao().insert(hospital);
+                mAppDatabase.hospitalDao().save(hospital);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,7 +152,7 @@ public class AppDbHelper implements DbHelper {
     public Flowable<Boolean> saveHospitalList(List<Hospital> hospitalList) {
         return Flowable.fromCallable(() -> {
             try {
-                mAppDatabase.hospitalDao().insertAll(hospitalList);
+                mAppDatabase.hospitalDao().saveList(hospitalList);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -139,7 +165,7 @@ public class AppDbHelper implements DbHelper {
     public Flowable<Boolean> saveMedicine(Medicine medicine) {
         return Flowable.fromCallable(() -> {
             try {
-                mAppDatabase.medicineDao().insert(medicine);
+                mAppDatabase.medicineDao().save(medicine);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,7 +178,7 @@ public class AppDbHelper implements DbHelper {
     public Flowable<Boolean> saveMedicineList(List<Medicine> medicineList) {
         return Flowable.fromCallable(() -> {
             try {
-                mAppDatabase.medicineDao().insertAll(medicineList);
+                mAppDatabase.medicineDao().saveList(medicineList);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
