@@ -16,7 +16,7 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseViewHolder;
 
 import java.util.List;
 
-public class CRUDAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class CRUDAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
@@ -27,6 +27,10 @@ public class CRUDAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public CRUDAdapter(List<Medical> medicalList) {
         this.medicalList = medicalList;
         Log.d("CRUDA", "CRUDAdapter: " + medicalList.size());
+    }
+
+    public void setMedicalList(List<Medical> medicalList) {
+        this.medicalList.addAll(medicalList);
     }
 
     public void setCallback(Callback mCallback) {
@@ -70,33 +74,36 @@ public class CRUDAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public void addItems(List<Medical> medicalList) {
-        clearItems();
-        this.medicalList.addAll(medicalList);
-        notifyDataSetChanged();
-        Log.d("CRUDA", "addItems: " + medicalList.size());
-    }
+    public abstract void crudItems(List<Medical> medicalList);
+//    {
+//        if (tag.equals(mTag)) {
+//            clearItems();
+//            this.medicalList.addAll(medicalList);
+//            notifyDataSetChanged();
+//            Log.d("CRUDA", "crudItems: " + medicalList.size());
+//        }
+//    }
 
-    public void selectItems(List<Medical> medicalList) {
-        clearItems();
-        this.medicalList.addAll(medicalList);
-        notifyDataSetChanged();
-        Log.d("CRUDA", "selectItems: " + medicalList.size());
-    }
-
-    public void updateItems(List<Medical> medicalList) {
-        clearItems();
-        this.medicalList.addAll(medicalList);
-        notifyDataSetChanged();
-        Log.d("CRUDA", "updateItems: " + medicalList.size());
-    }
-
-    public void deleteItems(List<Medical> medicalList) {
-        clearItems();
-        this.medicalList.addAll(medicalList);
-        notifyDataSetChanged();
-        Log.d("CRUDA", "deleteItems: " + medicalList.size());
-    }
+//    public void selectItems(List<Medical> medicalList) {
+//        clearItems();
+//        this.medicalList.addAll(medicalList);
+//        notifyDataSetChanged();
+//        Log.d("CRUDA", "selectItems: " + medicalList.size());
+//    }
+//
+//    public void updateItems(List<Medical> medicalList) {
+//        clearItems();
+//        this.medicalList.addAll(medicalList);
+//        notifyDataSetChanged();
+//        Log.d("CRUDA", "updateItems: " + medicalList.size());
+//    }
+//
+//    public void deleteItems(List<Medical> medicalList) {
+//        clearItems();
+//        this.medicalList.addAll(medicalList);
+//        notifyDataSetChanged();
+//        Log.d("CRUDA", "deleteItems: " + medicalList.size());
+//    }
 
     public void clearItems() {
         this.medicalList.clear();
@@ -133,7 +140,7 @@ public class CRUDAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final Medical medical = medicalList.get(position);
 
             if (position >= 0) {
-                this.id.setText(position);
+                this.id.setText(String.valueOf(position));
             }
 
             if (medical.getHospitalName() != null) {

@@ -3,17 +3,18 @@ package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-public class CRUDActivity extends BaseActivity {
+public class CRUDActivity extends BaseActivity implements CRUDMvpView {
 
     @Inject
     CRUDMvpPresenter<CRUDMvpView> mPresenter;
@@ -27,29 +28,22 @@ public class CRUDActivity extends BaseActivity {
 
     TabLayout mTabLayout;
 
-//    public static Intent getStartIntent(Context context) {
-//        Intent intent = new Intent(context, CRUDActivity.class);
-//        return intent;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crud);
+
+        this.mToolbar = findViewById(R.id.toolbar);
+        this.mViewPager = findViewById(R.id.crudViewPager);
+        this.mTabLayout = findViewById(R.id.tabLayout);
+
         getActivityComponent().inject(this);
         setUp();
     }
 
     @Override
     protected void setUp() {
-        setSupportActionBar(mToolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-        this.mPagerAdapter.setCount(2);
+        mPagerAdapter.setCount(4);
 
         mViewPager.setAdapter(mPagerAdapter);
 
@@ -86,4 +80,23 @@ public class CRUDActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void updateNumOfRecord(Long numOfRecord) {
+
+    }
+
+    @Override
+    public void updateExecutionTime(Long executionTime) {
+
+    }
+
+    @Override
+    public void crudMedicalData(List<Medical> medicalList) {
+
+    }
+
+    @Override
+    public void stateLoading(boolean state) {
+
+    }
 }

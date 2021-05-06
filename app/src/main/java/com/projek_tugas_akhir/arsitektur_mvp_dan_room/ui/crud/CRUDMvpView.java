@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface CRUDMvpView extends MvpView {
 
-    void updateMedical(List<Medical> medicalList);
+    void updateNumOfRecord(Long numOfRecord);
+
+    void updateExecutionTime(Long executionTime);
+
+    void crudMedicalData(List<Medical> medicalList);
+
+    void stateLoading(boolean state);
 
 }

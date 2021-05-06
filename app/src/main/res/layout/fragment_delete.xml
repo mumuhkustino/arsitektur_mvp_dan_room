@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,9 +23,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
-                android:layout_marginRight="10dp"/>
-<!--                android:text="@{viewModel.numOfRecord != null ? `RECORD : ` + viewModel.numOfRecord : `RECORD : 0`}"-->
-<!--                tools:text="RECORD : XXXXXX"/>-->
+                android:layout_marginRight="10dp"
+                android:text="RECORD : 0"
+                tools:text="RECORD : XXXXXX"/>
 
             <TextView
                 android:id="@+id/textViewTime"
@@ -36,9 +35,9 @@
                 android:layout_marginTop="5dp"
                 android:paddingRight="15dp"
                 android:layout_marginLeft="10dp"
-                android:gravity="end"/>
-<!--                android:text="@{viewModel.executionTime != null ? `TIME (MS) : ` + viewModel.executionTime : `TIME (MS) : 0`}"-->
-<!--                tools:text="TIME (MS) : XXXXXX"/>-->
+                android:gravity="end"
+                android:text="TIME (MS) : 0"
+                tools:text="TIME (MS) : XXXXXX"/>
 
         </LinearLayout>
 
@@ -51,9 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="80dp"
-
                 tools:listitem="@layout/item_view" />
-<!--            app:adapterDelete="@{viewModel.medicalListLiveData}"-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,10 +81,8 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-
                     android:text="@string/execute"
                     tools:text="EXECUTE"/>
-<!--                android:onClick="@{() -> viewModel.onClick()}"-->
 
             </LinearLayout>
 
@@ -100,6 +95,7 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="center"/>
-<!--        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
+
 </FrameLayout>
