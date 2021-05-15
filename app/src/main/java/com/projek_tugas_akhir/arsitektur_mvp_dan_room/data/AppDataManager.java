@@ -15,6 +15,7 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.AppConstants;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.CommonUtils;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Flowable<Boolean> seedDatabaseHospital(Long numOfData) {
+    public Flowable<List<Hospital>> seedDatabaseHospital(Long numOfData) {
         GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
         final Gson gson = builder.create();
 
@@ -61,9 +62,9 @@ public class AppDataManager implements DataManager {
                     CommonUtils.loadJSONFromAsset(context,
                             pathJson),
                     type);
-            return insertHospitalList(hospitalList);
+            return  Flowable.just(hospitalList);
         } catch (Exception e) {
-            return Flowable.just(false);
+            return Flowable.just(new ArrayList<>());
         }
     }
 
@@ -78,7 +79,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Flowable<Boolean> seedDatabaseMedicine(Long numOfData) {
+    public Flowable<List<Medicine>> seedDatabaseMedicine(Long numOfData) {
         GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
         final Gson gson = builder.create();
 
@@ -98,20 +99,22 @@ public class AppDataManager implements DataManager {
                     CommonUtils.loadJSONFromAsset(context,
                             pathJson),
                     type);
-            return insertMedicineList(medicineList);
+            return Flowable.just(medicineList);
         } catch (Exception e) {
-            return Flowable.just(false);
+            return Flowable.just(new ArrayList<>());
         }
     }
 
     @Override
     public Flowable<Boolean> updateDatabaseMedicine(Medicine medicine) {
-        return dbHelper.loadMedicine(medicine).concatMap(this::saveMedicine);
+        return dbHelper.saveMedicine(medicine);
+//        return dbHelper.loadMedicine(medicine).concatMap(medicine1 -> saveMedicine(medicine));
     }
 
     @Override
     public Flowable<Boolean> deleteDatabaseMedicine(Medicine medicine) {
-        return dbHelper.loadMedicine(medicine).concatMap(this::deleteMedicine);
+        return dbHelper.deleteMedicine(medicine);
+//        return dbHelper.loadMedicine(medicine).concatMap(medicine1 -> deleteMedicine(medicine));
     }
 
     @Override
@@ -120,20 +123,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Flowable<Boolean> insertHospitalList(List<Hospital> hospitalList) {
-        Log.d(TAG, "insertHospitalList: " + hospitalList.size());
-        return dbHelper.insertHospitalList(hospitalList);
-    }
-
-    @Override
     public Flowable<Boolean> insertMedicine(Medicine medicine) {
         return dbHelper.insertMedicine(medicine);
-    }
-
-    @Override
-    public Flowable<Boolean> insertMedicineList(List<Medicine> medicineList) {
-        Log.d(TAG, "insertMedicineList: " + medicineList.size());
-        return dbHelper.insertMedicineList(medicineList);
     }
 
     @Override
@@ -143,7 +134,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Flowable<Boolean> deleteMedicine(Medicine medicine) {
-        return dbHelper.insertMedicine(medicine);
+        return dbHelper.deleteMedicine(medicine);
     }
 
     @Override
@@ -162,8 +153,18 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Flowable<List<Hospital>> getAllHospital(Long numOfData) {
+        return dbHelper.getAllHospital(numOfData);
+    }
+
+    @Override
     public Flowable<List<Medicine>> getAllMedicine() {
         return dbHelper.getAllMedicine();
+    }
+
+    @Override
+    public Flowable<List<Medicine>> getAllMedicine(Long numOfData) {
+        return dbHelper.getAllMedicine(numOfData);
     }
 
     @Override
@@ -172,23 +173,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Flowable<Boolean> isHospitalEmpty() {
-        return dbHelper.isHospitalEmpty();
-    }
-
-    @Override
-    public Flowable<Boolean> isMedicineEmpty() {
-        return dbHelper.isMedicineEmpty();
-    }
-
-    @Override
     public Flowable<Boolean> saveHospital(Hospital hospital) {
         return dbHelper.saveHospital(hospital);
-    }
-
-    @Override
-    public Flowable<Boolean> saveHospitalList(List<Hospital> hospitalList) {
-        return dbHelper.saveHospitalList(hospitalList);
     }
 
     @Override
@@ -196,8 +182,4 @@ public class AppDataManager implements DataManager {
         return dbHelper.saveMedicine(medicine);
     }
 
-    @Override
-    public Flowable<Boolean> saveMedicineList(List<Medicine> medicineList) {
-        return dbHelper.saveMedicineList(medicineList);
-    }
 }

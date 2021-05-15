@@ -11,11 +11,7 @@ public interface DbHelper {
 
     Flowable<Boolean> insertHospital(Hospital hospital);
 
-    Flowable<Boolean> insertHospitalList(List<Hospital> hospitalList);
-
     Flowable<Boolean> insertMedicine(Medicine medicine);
-
-    Flowable<Boolean> insertMedicineList(List<Medicine> medicineList);
 
     Flowable<Boolean> deleteHospital(Hospital hospital);
 
@@ -27,20 +23,16 @@ public interface DbHelper {
 
     Flowable<List<Hospital>> getAllHospital();
 
+    Flowable<List<Hospital>> getAllHospital(Long numOfData);
+
     Flowable<List<Medicine>> getAllMedicine();
+
+    Flowable<List<Medicine>> getAllMedicine(Long numOfData);
 
     Flowable<List<Medicine>> getMedicinesForHospitalId(Long hospitalId);
 
-    Flowable<Boolean> isHospitalEmpty();
-
-    Flowable<Boolean> isMedicineEmpty();
-
     Flowable<Boolean> saveHospital(Hospital hospital);
 
-    Flowable<Boolean> saveHospitalList(List<Hospital> hospitalList);
-
     Flowable<Boolean> saveMedicine(Medicine medicine);
-
-    Flowable<Boolean> saveMedicineList(List<Medicine> medicineList);
 
 }

@@ -34,36 +34,10 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Flowable<Boolean> insertHospitalList(List<Hospital> hospitalList) {
-        return Flowable.fromCallable(() -> {
-            try {
-                mAppDatabase.hospitalDao().insertAll(hospitalList);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        });
-    }
-
-    @Override
     public Flowable<Boolean> insertMedicine(Medicine medicine) {
         return Flowable.fromCallable(() -> {
             try {
                 mAppDatabase.medicineDao().insert(medicine);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public Flowable<Boolean> insertMedicineList(List<Medicine> medicineList) {
-        return Flowable.fromCallable(() -> {
-            try {
-                mAppDatabase.medicineDao().insertAll(medicineList);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -114,8 +88,18 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Flowable<List<Hospital>> getAllHospital(Long numOfData) {
+        return mAppDatabase.hospitalDao().loadList(numOfData);
+    }
+
+    @Override
     public Flowable<List<Medicine>> getAllMedicine() {
         return mAppDatabase.medicineDao().loadAll();
+    }
+
+    @Override
+    public Flowable<List<Medicine>> getAllMedicine(Long numOfData) {
+        return mAppDatabase.medicineDao().loadList(numOfData);
     }
 
     @Override
@@ -124,35 +108,10 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Flowable<Boolean> isHospitalEmpty() {
-        return mAppDatabase.hospitalDao().loadAll()
-                .flatMap(hospitals -> Flowable.just(hospitals.isEmpty()));
-    }
-
-    @Override
-    public Flowable<Boolean> isMedicineEmpty() {
-        return mAppDatabase.medicineDao().loadAll()
-                .flatMap(medicines -> Flowable.just(medicines.isEmpty()));
-    }
-
-    @Override
     public Flowable<Boolean> saveHospital(Hospital hospital) {
         return Flowable.fromCallable(() -> {
             try {
                 mAppDatabase.hospitalDao().save(hospital);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public Flowable<Boolean> saveHospitalList(List<Hospital> hospitalList) {
-        return Flowable.fromCallable(() -> {
-            try {
-                mAppDatabase.hospitalDao().saveList(hospitalList);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -174,16 +133,4 @@ public class AppDbHelper implements DbHelper {
         });
     }
 
-    @Override
-    public Flowable<Boolean> saveMedicineList(List<Medicine> medicineList) {
-        return Flowable.fromCallable(() -> {
-            try {
-                mAppDatabase.medicineDao().saveList(medicineList);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        });
-    }
 }
