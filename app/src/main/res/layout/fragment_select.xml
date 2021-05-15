@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="80dp"
-                tools:listitem="@layout/item_view" />
+                tools:listitem="@layout/item_update_view" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,6 +85,15 @@
                     tools:text="EXECUTE"/>
 
             </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_slideshow"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="100dp"
+                android:layout_gravity="bottom"/>
 
         </FrameLayout>
 

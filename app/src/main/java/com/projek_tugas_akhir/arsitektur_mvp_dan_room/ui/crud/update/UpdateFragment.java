@@ -3,7 +3,6 @@ package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update;
 import android.os.Bundle;
 
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,22 +20,22 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDAdapter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpPresenter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpView;
 
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class UpdateFragment extends BaseFragment implements CRUDMvpView, CRUDAdapter.Callback {
+public class UpdateFragment extends BaseFragment implements UpdateMvpView, UpdateAdapter.Callback {
 
     private static final String TAG = "UpdateFragment";
 
     @Inject
-    CRUDMvpPresenter<CRUDMvpView> mPresenter;
+    @Named("updatePresenter")
+    UpdatePresenter<UpdateMvpView> mPresenter;
 
     @Inject
+    @Named("updateAdapter")
     UpdateAdapter mUpdateAdapter;
 
     @Inject
@@ -113,22 +112,23 @@ public class UpdateFragment extends BaseFragment implements CRUDMvpView, CRUDAda
     }
 
     @Override
-    public void updateNumOfRecord(Long numOfRecord) {
+    public void updateNumOfRecordUpdate(Long numOfRecord) {
         this.mNumOfRecord.setText("RECORD : " + numOfRecord.toString());
     }
 
     @Override
-    public void updateExecutionTime(Long executionTime) {
+    public void updateExecutionTimeUpdate(Long executionTime) {
         this.mExecutionTime.setText("TIME (MS) : " + executionTime.toString());
     }
 
     @Override
-    public void crudMedicalData(List<Medical> medicalList) {
-        this.mUpdateAdapter.crudItems(medicalList);
+    public void updateMedicalData(List<Medical> medicalList) {
+        this.mUpdateAdapter.clearItems();
+        this.mUpdateAdapter.updateItems(medicalList);
     }
 
     @Override
-    public void stateLoading(boolean state) {
+    public void stateLoadingUpdate(boolean state) {
         if (state)
             this.progressBar.setVisibility(View.VISIBLE);
         else

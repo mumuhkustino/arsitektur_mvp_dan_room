@@ -7,17 +7,11 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseActivity;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
-public class CRUDActivity extends BaseActivity implements CRUDMvpView {
-
-    @Inject
-    CRUDMvpPresenter<CRUDMvpView> mPresenter;
+public class CRUDActivity extends BaseActivity {
 
     @Inject
     CRUDPagerAdapter mPagerAdapter;
@@ -74,29 +68,4 @@ public class CRUDActivity extends BaseActivity implements CRUDMvpView {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        mPresenter.onDetach();
-        super.onDestroy();
-    }
-
-    @Override
-    public void updateNumOfRecord(Long numOfRecord) {
-
-    }
-
-    @Override
-    public void updateExecutionTime(Long executionTime) {
-
-    }
-
-    @Override
-    public void crudMedicalData(List<Medical> medicalList) {
-
-    }
-
-    @Override
-    public void stateLoading(boolean state) {
-
-    }
 }

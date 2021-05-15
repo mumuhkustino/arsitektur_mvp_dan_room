@@ -21,22 +21,22 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDAdapter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpPresenter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpView;
 
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class DeleteFragment extends BaseFragment implements CRUDMvpView, CRUDAdapter.Callback {
+public class DeleteFragment extends BaseFragment implements DeleteMvpView, DeleteAdapter.Callback {
 
     private static final String TAG = "DeleteFragment";
 
     @Inject
-    CRUDMvpPresenter<CRUDMvpView> mPresenter;
+    @Named("deletePresenter")
+    DeletePresenter<DeleteMvpView> mPresenter;
 
     @Inject
+    @Named("deleteAdapter")
     DeleteAdapter mDeleteAdapter;
 
     @Inject
@@ -113,24 +113,24 @@ public class DeleteFragment extends BaseFragment implements CRUDMvpView, CRUDAda
     }
 
     @Override
-    public void updateNumOfRecord(Long numOfRecord) {
-        Log.d(TAG, "updateNumOfRecord: " + numOfRecord);
+    public void updateNumOfRecordDelete(Long numOfRecord) {
         this.mNumOfRecord.setText("RECORD : " + numOfRecord.toString());
     }
 
+
     @Override
-    public void updateExecutionTime(Long executionTime) {
-        Log.d(TAG, "updateExecutionTime: " + executionTime);
+    public void updateExecutionTimeDelete(Long executionTime) {
         this.mExecutionTime.setText("TIME (MS) : " + executionTime.toString());
     }
 
     @Override
-    public void crudMedicalData(List<Medical> medicalList) {
-        this.mDeleteAdapter.crudItems(medicalList);
+    public void deleteMedicalData(List<Medical> medicalList) {
+        this.mDeleteAdapter.clearItems();
+        this.mDeleteAdapter.deleteItems(medicalList);
     }
 
     @Override
-    public void stateLoading(boolean state) {
+    public void stateLoadingDelete(boolean state) {
         if (state)
             this.progressBar.setVisibility(View.VISIBLE);
         else
