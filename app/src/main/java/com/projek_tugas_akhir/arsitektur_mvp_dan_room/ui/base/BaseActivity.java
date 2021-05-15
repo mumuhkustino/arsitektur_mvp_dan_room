@@ -6,16 +6,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.MVPRoom;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
@@ -80,13 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     private void showSnackBar(String message) {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.content),
-                message, Snackbar.LENGTH_SHORT);
-        View sbView = snackbar.getView();
-        TextView textView = (TextView) sbView
-                .findViewById(R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.white));
-        snackbar.show();
+        Log.d("BA", "showSnackBar: " + message);
     }
 
     @Override
