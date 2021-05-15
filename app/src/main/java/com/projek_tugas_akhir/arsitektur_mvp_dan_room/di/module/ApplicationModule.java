@@ -38,7 +38,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     AppDatabase provideAppDatabase(@DatabaseInfo String dbName, @ApplicationContext Context context) {
-        return Room.databaseBuilder(context, AppDatabase.class, dbName).fallbackToDestructiveMigration()
+        return Room.databaseBuilder(context, AppDatabase.class, dbName).fallbackToDestructiveMigration().allowMainThreadQueries()
                 .build();
     }
 

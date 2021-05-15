@@ -6,19 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.ActivityContext;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.PerActivity;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpPresenter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDMvpView;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDPagerAdapter;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.CRUDPresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete.DeleteAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete.DeleteMvpView;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete.DeletePresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert.InsertAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert.InsertMvpView;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert.InsertPresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.select.SelectAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.select.SelectMvpView;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.select.SelectPresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update.UpdateAdapter;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update.UpdateMvpView;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update.UpdatePresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.AppSchedulerProvider;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -55,9 +61,30 @@ public class ActivityModule {
     }
 
     @Provides
-    @PerActivity
-    CRUDMvpPresenter<CRUDMvpView> provideCrudPresenter(
-            CRUDPresenter<CRUDMvpView> presenter) {
+    @Named("insertPresenter")
+    InsertPresenter<InsertMvpView> provideInsertPresenter(
+            InsertPresenter<InsertMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @Named("selectPresenter")
+    SelectPresenter<SelectMvpView> provideSelectPresenter(
+            SelectPresenter<SelectMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @Named("updatePresenter")
+    UpdatePresenter<UpdateMvpView> provideUpdatePresenter(
+            UpdatePresenter<UpdateMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @Named("deletePresenter")
+    DeletePresenter<DeleteMvpView> provideDeletePresenter(
+            DeletePresenter<DeleteMvpView> presenter) {
         return presenter;
     }
 
@@ -67,21 +94,25 @@ public class ActivityModule {
     }
 
     @Provides
+    @Named("insertAdapter")
     InsertAdapter provideInsertAdapter() {
         return new InsertAdapter(new ArrayList<>());
     }
 
     @Provides
+    @Named("selectAdapter")
     SelectAdapter provideSelectAdapter() {
         return new SelectAdapter(new ArrayList<>());
     }
 
     @Provides
+    @Named("updateAdapter")
     UpdateAdapter provideUpdateAdapter() {
         return new UpdateAdapter(new ArrayList<>());
     }
 
     @Provides
+    @Named("deleteAdapter")
     DeleteAdapter provideDeleteAdapter() {
         return new DeleteAdapter(new ArrayList<>());
     }
