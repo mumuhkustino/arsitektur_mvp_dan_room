@@ -19,9 +19,6 @@ public interface HospitalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Hospital hospital);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Hospital> hospitalList);
-
     @Delete
     void delete(Hospital hospital);
 
@@ -31,9 +28,10 @@ public interface HospitalDao {
     @Query("SELECT * FROM hospitals")
     Flowable<List<Hospital>> loadAll();
 
+    @Query("SELECT * FROM hospitals LIMIT :numOfData")
+    Flowable<List<Hospital>> loadList(Long numOfData);
+
     @Update
     void save(Hospital hospital);
 
-    @Update
-    void saveList(List<Hospital> hospitalList);
 }

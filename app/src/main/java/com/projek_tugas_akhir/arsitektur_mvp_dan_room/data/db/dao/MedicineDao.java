@@ -20,9 +20,6 @@ public interface MedicineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Medicine medicine);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Medicine> medicineList);
-
     @Delete
     void delete(Medicine medicine);
 
@@ -35,10 +32,10 @@ public interface MedicineDao {
     @Query("SELECT * FROM medicines")
     Flowable<List<Medicine>> loadAll();
 
-    @Update
-    void save(Medicine medicine);
+    @Query("SELECT * FROM medicines LIMIT :numOfData")
+    Flowable<List<Medicine>> loadList(Long numOfData);
 
     @Update
-    void saveList(List<Medicine> medicine);
+    void save(Medicine medicine);
 
 }
