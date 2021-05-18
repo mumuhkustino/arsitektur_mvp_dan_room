@@ -1,7 +1,6 @@
 package com.projek_tugas_akhir.arsitektur_mvp_dan_room.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -108,13 +107,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Flowable<Boolean> updateDatabaseMedicine(Medicine medicine) {
         return dbHelper.saveMedicine(medicine);
-//        return dbHelper.loadMedicine(medicine).concatMap(medicine1 -> saveMedicine(medicine));
     }
 
     @Override
     public Flowable<Boolean> deleteDatabaseMedicine(Medicine medicine) {
         return dbHelper.deleteMedicine(medicine);
-//        return dbHelper.loadMedicine(medicine).concatMap(medicine1 -> deleteMedicine(medicine));
     }
 
     @Override
