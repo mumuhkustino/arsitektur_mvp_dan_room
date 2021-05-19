@@ -25,56 +25,6 @@ public class DeletePresenter <V extends DeleteMvpView> extends BasePresenter<V> 
     }
 
     public void deleteDatabase(Long numOfData) {
-//        long startTime = System.currentTimeMillis();
-//        AtomicInteger index = new AtomicInteger(0);
-//        List<Medicine> medicines = new ArrayList<>();
-//        //                    for (int i = 0; i < medicineList.size(); i++) {
-//        //                        if (index.get() < numOfData) {
-//        //                            medicines.add(medicineList.get(i));
-//        //                            index.getAndIncrement();
-//        //                        } else
-//        //                            break;
-//        //                    }
-//        getCompositeDisposable().add(getDataManager()
-//            .getAllHospital(numOfData > 1000 ? numOfData / 1000 : numOfData)
-//                .concatMap(Flowable::fromIterable)
-//                    .concatMap(hospital -> Flowable.zip(
-//                            getDataManager().getMedicinesForHospitalId(hospital.id),
-//                            Flowable.just(hospital),
-//                            ((medicineList, hospital1) -> {
-//                                for (Medicine m : medicineList) {
-//                                    if (index.get() < numOfData) {
-//                                        medicines.add(m);
-//                                        index.getAndIncrement();
-//                                    }
-//                                }
-//                                return medicines;
-//                            })
-//                    ))
-//                .concatMap(Flowable::fromIterable)
-//                .concatMap(medicine -> getDataManager().deleteDatabaseMedicine(medicine))
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(aBoolean -> {
-//                    if (!isViewAttached())
-//                        return;
-//                    if (index.get() == numOfData) {
-//                        getMvpView().updateNumOfRecordDelete(index.longValue());
-//                        long endTime = System.currentTimeMillis();
-//                        long timeElapsed = endTime - startTime; //In MilliSeconds
-//                        getMvpView().updateExecutionTimeDelete(timeElapsed); //To MilliSeconds
-//                        index.getAndIncrement();
-//                    } else if (index.get() == numOfData + 1) {
-//                        Log.d(TAG, "deleteDatabase: " + index.get());
-//                        index.getAndIncrement();
-//                    }
-//                }, throwable -> {
-//                    if (!isViewAttached())
-//                        return;
-//                    getMvpView().stateLoadingDelete(false);
-//                    getMvpView().onError(R.string.some_error);
-//                    Log.d(TAG, "deleteDatabase: " + throwable.getMessage());
-//                }));
-
         long startTime = System.currentTimeMillis();
         AtomicInteger index = new AtomicInteger(0);
         getCompositeDisposable().add(getDataManager()
