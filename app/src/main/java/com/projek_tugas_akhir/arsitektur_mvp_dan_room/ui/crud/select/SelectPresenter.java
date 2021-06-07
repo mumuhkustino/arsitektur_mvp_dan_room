@@ -68,6 +68,7 @@ public class SelectPresenter<V extends SelectMvpView> extends BasePresenter<V> i
                     return;
                 if (medicalList != null && index.get() == numOfData) {
                     getMvpView().selectMedicalData(medicalList); //Change data list
+                    getMvpView().updateNumOfRecordSelect(index.longValue());
                     getMvpView().updateSelectDatabaseTime(selectDbTime.longValue()); //Change execution time
                     AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
                     AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allSelectTime.longValue());

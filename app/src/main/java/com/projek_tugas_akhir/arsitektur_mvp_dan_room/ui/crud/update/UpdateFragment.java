@@ -47,7 +47,11 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
 
     TextView mNumOfRecord;
 
-    TextView mExecutionTime;
+    TextView mUpdateDatabaseTime;
+
+    TextView mAllUpdateTime;
+
+    TextView mViewUpdateTime;
 
     EditText mEditTextNumData;
 
@@ -64,7 +68,9 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
     protected void setUp(View view) {
         this.mRecyclerView = view.findViewById(R.id.updateRecyclerView);
         this.mNumOfRecord = view.findViewById(R.id.textViewRecord);
-        this.mExecutionTime = view.findViewById(R.id.textViewTime);
+        this.mUpdateDatabaseTime = view.findViewById(R.id.textViewTimeUpdateDB);
+        this.mAllUpdateTime = view.findViewById(R.id.textViewTimeUpdateAll);
+        this.mViewUpdateTime = view.findViewById(R.id.textViewTimeUpdateView);
         this.mEditTextNumData = view.findViewById(R.id.editTextNumData);
         this.btnExecute = view.findViewById(R.id.btnExecute);
         this.progressBar = view.findViewById(R.id.progressBar);
@@ -117,8 +123,18 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
     }
 
     @Override
-    public void updateExecutionTimeUpdate(Long executionTime) {
-        this.mExecutionTime.setText("TIME (MS) : " + executionTime.toString());
+    public void updateUpdateDatabaseTime(Long updateDatabaseTime) {
+        this.mUpdateDatabaseTime.setText("TIME DB (MS) : " + updateDatabaseTime.toString());
+    }
+
+    @Override
+    public void updateAllUpdateTime(Long allUpdateTime) {
+        this.mAllUpdateTime.setText("TIME ALL (MS) : " + allUpdateTime.toString());
+    }
+
+    @Override
+    public void updateViewUpdateTime(Long viewUpdateTime) {
+        this.mViewUpdateTime.setText("TIME VIEW (MS) : " + viewUpdateTime.toString());
     }
 
     @Override

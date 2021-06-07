@@ -9,7 +9,11 @@ public interface UpdateMvpView extends MvpView {
 
     void updateNumOfRecordUpdate(Long numOfRecord);
 
-    void updateExecutionTimeUpdate(Long executionTime);
+    void updateUpdateDatabaseTime(Long updateDatabaseTime);
+
+    void updateAllUpdateTime(Long allUpdateTime);
+
+    void updateViewUpdateTime(Long viewUpdateTime);
 
     void updateMedicalData(List<Medical> medicalList);
 
