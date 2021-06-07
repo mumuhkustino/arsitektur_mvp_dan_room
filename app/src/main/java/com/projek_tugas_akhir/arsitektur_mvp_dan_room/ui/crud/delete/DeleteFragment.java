@@ -3,7 +3,6 @@ package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete;
 import android.os.Bundle;
 
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +47,11 @@ public class DeleteFragment extends BaseFragment implements DeleteMvpView, Delet
 
     TextView mNumOfRecord;
 
-    TextView mExecutionTime;
+    TextView mDeleteDatabaseTime;
+
+    TextView mAllDeleteTime;
+
+    TextView mViewDeleteTime;
 
     EditText mEditTextNumData;
 
@@ -65,7 +68,9 @@ public class DeleteFragment extends BaseFragment implements DeleteMvpView, Delet
     protected void setUp(View view) {
         this.mRecyclerView = view.findViewById(R.id.deleteRecyclerView);
         this.mNumOfRecord = view.findViewById(R.id.textViewRecord);
-        this.mExecutionTime = view.findViewById(R.id.textViewTime);
+        this.mDeleteDatabaseTime = view.findViewById(R.id.textViewTimeDeleteDB);
+        this.mAllDeleteTime = view.findViewById(R.id.textViewTimeDeleteAll);
+        this.mViewDeleteTime = view.findViewById(R.id.textViewTimeDeleteView);
         this.mEditTextNumData = view.findViewById(R.id.editTextNumData);
         this.btnExecute = view.findViewById(R.id.btnExecute);
         this.progressBar = view.findViewById(R.id.progressBar);
@@ -117,10 +122,19 @@ public class DeleteFragment extends BaseFragment implements DeleteMvpView, Delet
         this.mNumOfRecord.setText("RECORD : " + numOfRecord.toString());
     }
 
+    @Override
+    public void updateDeleteDatabaseTime(Long deleteDatabaseTime) {
+        this.mDeleteDatabaseTime.setText("TIME DB (MS) : " + deleteDatabaseTime.toString());
+    }
 
     @Override
-    public void updateExecutionTimeDelete(Long executionTime) {
-        this.mExecutionTime.setText("TIME (MS) : " + executionTime.toString());
+    public void updateAllDeleteTime(Long allDeleteTime) {
+        this.mAllDeleteTime.setText("TIME ALL (MS) : " + allDeleteTime.toString());
+    }
+
+    @Override
+    public void updateViewDeleteTime(Long viewDeleteTime) {
+        this.mViewDeleteTime.setText("TIME VIEW (MS) : " + viewDeleteTime.toString());
     }
 
     @Override
