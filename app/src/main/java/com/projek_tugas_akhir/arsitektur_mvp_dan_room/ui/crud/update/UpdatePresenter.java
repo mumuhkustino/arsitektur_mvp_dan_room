@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.DataManager;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTime;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BasePresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.SchedulerProvider;
 
@@ -26,7 +28,7 @@ public class UpdatePresenter<V extends UpdateMvpView> extends BasePresenter<V> i
         super(mDataManager, mSchedulerProvider, mCompositeDisposable);
     }
 
-    public void updateDatabase(Long numOfData) {
+    public void updateDatabase(ExecutionTimePreference executionTimePreference, Long numOfData) {
         AtomicLong viewUpdateTime = new AtomicLong(0);
         AtomicLong updateDbTime = new AtomicLong(0);
         AtomicLong updateTime = new AtomicLong(0);
@@ -73,6 +75,14 @@ public class UpdatePresenter<V extends UpdateMvpView> extends BasePresenter<V> i
                     viewUpdateTime.set(timeElapsed.get() - updateDbTime.longValue());
                     getMvpView().updateViewUpdateTime(viewUpdateTime.longValue());
                     getMvpView().updateAllUpdateTime(timeElapsed.longValue());
+
+                    ExecutionTime executionTime = executionTimePreference.getExecutionTime();
+                    executionTime.setDatabaseUpdateTime(updateDbTime.toString());
+                    executionTime.setAllUpdateTime(timeElapsed.toString());
+                    executionTime.setViewUpdateTime(viewUpdateTime.toString());
+                    executionTime.setNumOfRecordUpdate(numOfData.toString());
+                    executionTimePreference.setExecutionTime(executionTime);
+
                     Log.d(TAG, "updateDatabase: " + index.longValue());
                     index.getAndIncrement();
                 }
@@ -82,7 +92,7 @@ public class UpdatePresenter<V extends UpdateMvpView> extends BasePresenter<V> i
     }
 
     @Override
-    public void onUpdateExecuteClick(Long numOfData) {
-        updateDatabase(numOfData);
+    public void onUpdateExecuteClick(ExecutionTimePreference executionTimePreference, Long numOfData) {
+        updateDatabase(executionTimePreference, numOfData);
     }
 }
