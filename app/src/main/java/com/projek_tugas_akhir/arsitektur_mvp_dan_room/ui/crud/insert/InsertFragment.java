@@ -1,10 +1,8 @@
 package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
@@ -46,6 +45,8 @@ public class InsertFragment extends BaseFragment implements InsertMvpView, Inser
     ContentLoadingProgressBar progressBar;
 
     RecyclerView mRecyclerView;
+
+    ExecutionTimePreference executionTimePreference;
 
     TextView mNumOfRecord;
 
@@ -83,7 +84,7 @@ public class InsertFragment extends BaseFragment implements InsertMvpView, Inser
                 if (mEditTextNumData.getText() != null) {
                     try {
                         Long numOfData = Long.valueOf(mEditTextNumData.getText().toString());
-                        mPresenter.onInsertExecuteClick(numOfData);
+                        mPresenter.onInsertExecuteClick(executionTimePreference, numOfData);
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "Num Of Data is Not Valid", Toast.LENGTH_SHORT).show();
                     }
@@ -98,6 +99,23 @@ public class InsertFragment extends BaseFragment implements InsertMvpView, Inser
         this.mRecyclerView.setLayoutManager(mLayoutManager);
         this.mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         this.mRecyclerView.setAdapter(mInsertAdapter);
+
+        if (!executionTimePreference.getExecutionTime().getDatabaseInsertTime().isEmpty())
+            this.mInsertDatabaseTime
+                    .setText("TIME DB (MS) : " +
+                            executionTimePreference.getExecutionTime().getDatabaseInsertTime());
+        if (!executionTimePreference.getExecutionTime().getAllInsertTime().isEmpty())
+            this.mAllInsertTime
+                    .setText("TIME ALL (MS) : " +
+                            executionTimePreference.getExecutionTime().getAllInsertTime());
+        if (!executionTimePreference.getExecutionTime().getViewInsertTime().isEmpty())
+            this.mViewInsertTime
+                    .setText("TIME VIEW (MS) : " +
+                            executionTimePreference.getExecutionTime().getViewInsertTime());
+        if (!executionTimePreference.getExecutionTime().getNumOfRecordInsert().isEmpty())
+            this.mNumOfRecord
+                    .setText("RECORD : " +
+                            executionTimePreference.getExecutionTime().getNumOfRecordInsert());
     }
 
     @Override
@@ -110,6 +128,8 @@ public class InsertFragment extends BaseFragment implements InsertMvpView, Inser
             component.inject(this);
             this.mPresenter.onAttach(this);
             this.mInsertAdapter.setCallback(this);
+
+            this.executionTimePreference = new ExecutionTimePreference(getBaseActivity());
         }
         return view;
     }
