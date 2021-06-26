@@ -86,11 +86,11 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
                         Long numOfData = Long.valueOf(mEditTextNumData.getText().toString());
                         mPresenter.onUpdateExecuteClick(executionTimePreference, numOfData);
                     } catch (Exception e) {
-                        Toast.makeText(getContext(), "Num Of Data is Not Valid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Amount Of Data is Not Valid", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.d(TAG, "onClick: ");
-                    Toast.makeText(getContext(), "Num Of Data is Not Valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Amount Of Data is Not Valid", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -114,7 +114,7 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
                             executionTimePreference.getExecutionTime().getViewUpdateTime());
         if (!executionTimePreference.getExecutionTime().getNumOfRecordUpdate().isEmpty())
             this.mNumOfRecord
-                    .setText("RECORD : " +
+                    .setText("RECORDS : " +
                             executionTimePreference.getExecutionTime().getNumOfRecordUpdate());
     }
 
@@ -141,7 +141,7 @@ public class UpdateFragment extends BaseFragment implements UpdateMvpView, Updat
 
     @Override
     public void updateNumOfRecordUpdate(Long numOfRecord) {
-        this.mNumOfRecord.setText("RECORD : " + numOfRecord.toString());
+        this.mNumOfRecord.setText("RECORDS : " + numOfRecord.toString());
     }
 
     @Override
