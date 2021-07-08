@@ -1,4 +1,4 @@
-package com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others;
+package com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others;
 
 public class Medical {
 

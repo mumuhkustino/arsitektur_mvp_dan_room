@@ -3,8 +3,8 @@ package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.delete;
 import android.util.Log;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.DataManager;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTime;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTime;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BasePresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.SchedulerProvider;
 
@@ -20,13 +20,14 @@ public class DeletePresenter <V extends DeleteMvpView> extends BasePresenter<V> 
 
     private static final String TAG = "DeletePresenter";
 
-    @Inject
+    @Inject // Penggunaan dependency injection pada instance delete presenter
     public DeletePresenter(DataManager mDataManager,
                            SchedulerProvider mSchedulerProvider,
                            CompositeDisposable mCompositeDisposable) {
         super(mDataManager, mSchedulerProvider, mCompositeDisposable);
     }
 
+    // Method yang digunakan untuk delete data
     public void deleteDatabase(ExecutionTimePreference executionTimePreference, Long numOfData) {
         AtomicLong viewDeleteTime = new AtomicLong(0);
         AtomicLong deleteDbTime = new AtomicLong(0);

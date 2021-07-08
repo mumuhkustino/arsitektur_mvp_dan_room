@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
 
@@ -32,13 +32,13 @@ public class SelectFragment extends BaseFragment implements SelectMvpView, Selec
 
     private static final String TAG = "SelectFragment";
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk presenter select
     @Named("selectPresenter")
-    SelectPresenter<SelectMvpView> mPresenter;
+    SelectPresenter<SelectMvpView> mPresenter; //Deklarasi Presenter pada view Select
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk adapter select
     @Named("selectAdapter")
-    SelectAdapter mSelectAdapter;
+    SelectAdapter mSelectAdapter; //Deklarasi Adapter pada view Select
 
     @Inject
     LinearLayoutManager mLayoutManager;

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
-        <activity android:name=".ui.crud.CRUDActivity"
+        <activity
+            android:name=".ui.crud.CRUDActivity"
             android:label="Arsitektur MVP Room"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseActivity;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.InformationDialogFragment;
 
@@ -168,7 +168,6 @@ public class CRUDActivity extends BaseActivity {
         dialogFragment.show(fragmentManager, "information_dialog");
     }
 
-
     @Override
     protected void setUp() {
         ActivityCompat.requestPermissions(this,
@@ -184,10 +183,10 @@ public class CRUDActivity extends BaseActivity {
 
         mViewPager.setAdapter(mPagerAdapter);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText("INSERT"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("SELECT"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("UPDATE"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("DELETE"));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_text_1));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_text_2));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_text_3));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_text_4));
 
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 

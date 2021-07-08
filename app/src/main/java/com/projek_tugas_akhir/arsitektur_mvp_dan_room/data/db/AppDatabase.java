@@ -9,10 +9,7 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Hospital;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Medicine;
 
 @Database(entities = {Hospital.class, Medicine.class},
-        version = 1
-//        ,
-//        exportSchema = false
-)
+        version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract HospitalDao hospitalDao();

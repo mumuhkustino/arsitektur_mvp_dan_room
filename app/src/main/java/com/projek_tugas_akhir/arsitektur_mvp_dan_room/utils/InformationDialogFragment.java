@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 
-public class InformationDialogFragment extends DialogFragment {
+public final class InformationDialogFragment extends DialogFragment {
     private Button mCloseButton;
 
     public InformationDialogFragment() {

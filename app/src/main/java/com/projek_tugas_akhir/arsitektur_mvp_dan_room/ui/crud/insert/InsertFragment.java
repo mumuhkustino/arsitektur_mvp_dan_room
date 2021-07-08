@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
 
@@ -31,13 +31,13 @@ public class InsertFragment extends BaseFragment implements InsertMvpView, Inser
 
     private static final String TAG = "InsertFragment";
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk presenter insert
     @Named("insertPresenter")
-    InsertPresenter<InsertMvpView> mPresenter;
+    InsertPresenter<InsertMvpView> mPresenter; //Deklarasi Presenter pada view Insert
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk adapter insert
     @Named("insertAdapter")
-    InsertAdapter mInsertAdapter;
+    InsertAdapter mInsertAdapter; //Deklarasi Adapter pada view Insert
 
     @Inject
     LinearLayoutManager mLayoutManager;

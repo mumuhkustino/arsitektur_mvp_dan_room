@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.di.component.ActivityComponent;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseFragment;
 
@@ -31,13 +31,13 @@ public class DeleteFragment extends BaseFragment implements DeleteMvpView, Delet
 
     private static final String TAG = "DeleteFragment";
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk presenter delete
     @Named("deletePresenter")
-    DeletePresenter<DeleteMvpView> mPresenter;
+    DeletePresenter<DeleteMvpView> mPresenter; //Deklarasi Presenter pada view Delete
 
-    @Inject
+    @Inject //Penggunaan dependency injection untuk adapter delete
     @Named("deleteAdapter")
-    DeleteAdapter mDeleteAdapter;
+    DeleteAdapter mDeleteAdapter; //Deklarasi Adapter pada view Delete
 
     @Inject
     LinearLayoutManager mLayoutManager;

@@ -2,10 +2,9 @@ package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.update;
 
 import android.util.Log;
 
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.DataManager;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTime;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTime;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BasePresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.rx.SchedulerProvider;
 
@@ -21,13 +20,14 @@ public class UpdatePresenter<V extends UpdateMvpView> extends BasePresenter<V> i
 
     private static final String TAG = "UpdatePresenter";
 
-    @Inject
+    @Inject // Penggunaan dependency injection pada instance update presenter
     public UpdatePresenter(DataManager mDataManager,
                            SchedulerProvider mSchedulerProvider,
                            CompositeDisposable mCompositeDisposable) {
         super(mDataManager, mSchedulerProvider, mCompositeDisposable);
     }
 
+    // Method yang digunakan untuk update data
     public void updateDatabase(ExecutionTimePreference executionTimePreference, Long numOfData) {
         AtomicLong viewUpdateTime = new AtomicLong(0);
         AtomicLong updateDbTime = new AtomicLong(0);

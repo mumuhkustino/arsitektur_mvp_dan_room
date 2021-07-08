@@ -1,6 +1,6 @@
 package com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.crud.insert;
 
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.ExecutionTimePreference;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.MvpPresenter;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.MvpView;
 

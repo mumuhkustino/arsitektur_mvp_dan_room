@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
-import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.others.Medical;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.Medical;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseViewHolder;
 
 import java.util.List;
