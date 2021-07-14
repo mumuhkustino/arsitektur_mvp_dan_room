@@ -23,6 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.R;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.others.ExecutionTimePreference;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.ui.base.BaseActivity;
+import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.CommonUtils;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.InformationDialogFragment;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -86,9 +87,7 @@ public class CRUDActivity extends BaseActivity {
                 return true;
             case R.id.action_export:
                 HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy HH.mm.ss");
-                Date date = new Date();
-                HSSFSheet hssfSheet = hssfWorkbook.createSheet(formatter.format(date));
+                HSSFSheet hssfSheet = hssfWorkbook.createSheet(CommonUtils.getTimeStamp());
 
                 List<List<String>> listExecutionTime = new ArrayList<>();
                 List<String> dataExecutionTime = new ArrayList<>();
