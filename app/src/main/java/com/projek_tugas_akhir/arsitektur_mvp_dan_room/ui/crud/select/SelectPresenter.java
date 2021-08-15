@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.inject.Inject;
-
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -40,53 +39,55 @@ public class SelectPresenter<V extends SelectMvpView> extends BasePresenter<V> i
         AtomicInteger index = new AtomicInteger(0);
         List<Medical> medicals = new ArrayList<>();
         getCompositeDisposable().add(getDataManager()
-            //Get All Hospital with Limit
-            .getAllHospital(numOfData >= 1000 ? numOfData / 1000 : 1)
+                //Get All Hospital with Limit
+                .getAllHospital(numOfData >= 1000 ? numOfData / 1000 : 1)
                 .concatMap(Flowable::fromIterable)
-                    //Get All Medicine with same hospital Id
-                    .concatMap(hospital -> {
-                        selectTime.set(System.currentTimeMillis());
-                        return Flowable.zip(
-                                getDataManager().getMedicinesForHospitalId(hospital.id),
-                                Flowable.just(hospital),
-                                ((medicineList, h) -> {
+                //Get All Medicine with same hospital Id
+                .concatMap(hospital -> {
+                    selectTime.set(System.currentTimeMillis());
+                    return Flowable.zip(
+                            getDataManager().getMedicinesForHospitalId(hospital.id),
+                            Flowable.just(hospital),
+                            ((medicineList, h) -> {
 
-                                    for (Medicine m : medicineList) {
-                                        if (index.get() < numOfData) {
-                                            medicals.add(new Medical(h.name, m.name));
-                                            index.getAndIncrement();
-                                        }
+                                for (Medicine m : medicineList) {
+                                    if (index.get() < numOfData) {
+                                        medicals.add(new Medical(h.name, m.name));
+                                        index.getAndIncrement();
                                     }
-                                    return medicals;
-                                })
-                        );
-                    })
+                                }
+                                return medicals;
+                            })
+                    );
+                })
                 .doOnNext(medicalList -> {
                     if (!medicalList.isEmpty())
                         selectDbTime.set(selectDbTime.longValue() + (System.currentTimeMillis() - selectTime.longValue()));
                 })
-            .observeOn(getSchedulerProvider().ui())
-            .subscribe(medicalList -> {
-                if (!isViewAttached())
-                    return;
-                getMvpView().selectMedicalData(medicalList); //Change data list
-                getMvpView().updateNumOfRecordSelect(index.longValue());
-                getMvpView().updateSelectDatabaseTime(selectDbTime.longValue()); //Change execution time
-                AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
-                AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allSelectTime.longValue());
-                viewSelectTime.set(timeElapsed.get() - selectDbTime.longValue());
-                getMvpView().updateViewSelectTime(viewSelectTime.longValue());
-                getMvpView().updateAllSelectTime(timeElapsed.longValue());
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(medicalList -> {
+                    if (!isViewAttached())
+                        return;
+                    if (index.longValue() == numOfData || medicalList.size() == 0) {
+                        getMvpView().selectMedicalData(medicalList); //Change data list
+                        getMvpView().updateNumOfRecordSelect(index.longValue());
+                        getMvpView().updateSelectDatabaseTime(selectDbTime.longValue()); //Change execution time
+                        AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
+                        AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allSelectTime.longValue());
+                        viewSelectTime.set(timeElapsed.get() - selectDbTime.longValue());
+                        getMvpView().updateViewSelectTime(viewSelectTime.longValue());
+                        getMvpView().updateAllSelectTime(timeElapsed.longValue());
 
-                ExecutionTime executionTime = executionTimePreference.getExecutionTime();
-                executionTime.setDatabaseSelectTime(selectDbTime.toString());
-                executionTime.setAllSelectTime(timeElapsed.toString());
-                executionTime.setViewSelectTime(viewSelectTime.toString());
-                executionTime.setNumOfRecordSelect(numOfData.toString());
-                executionTimePreference.setExecutionTime(executionTime);
+                        ExecutionTime executionTime = executionTimePreference.getExecutionTime();
+                        executionTime.setDatabaseSelectTime(selectDbTime.toString());
+                        executionTime.setAllSelectTime(timeElapsed.toString());
+                        executionTime.setViewSelectTime(viewSelectTime.toString());
+                        executionTime.setNumOfRecordSelect(numOfData.toString());
+                        executionTimePreference.setExecutionTime(executionTime);
 
-                Log.d(TAG, "selectDatabase: " + index.get());
-                index.getAndIncrement();
+                        if (medicalList.size() != 0)
+                            index.getAndIncrement();
+                    }
             }, throwable -> Log.d(TAG, "selectDatabase: " + throwable.getMessage()))
         );
     }
