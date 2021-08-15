@@ -14,7 +14,6 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.AppConstants;
 import com.projek_tugas_akhir.arsitektur_mvp_dan_room.utils.CommonUtils;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -63,18 +62,18 @@ public class AppDataManager implements DataManager {
                     type);
             return  Flowable.just(hospitalList);
         } catch (Exception e) {
-            return Flowable.just(new ArrayList<>());
+            return Flowable.just(null);
         }
     }
 
     @Override
     public Flowable<Boolean> updateDatabaseHospital(Hospital hospital) {
-        return dbHelper.loadHospital(hospital).concatMap(this::saveHospital);
+        return dbHelper.saveHospital(hospital);
     }
 
     @Override
     public Flowable<Boolean> deleteDatabaseHospital(Hospital hospital) {
-        return dbHelper.loadHospital(hospital).concatMap(this::deleteHospital);
+        return dbHelper.deleteHospital(hospital);
     }
 
     @Override
@@ -100,7 +99,7 @@ public class AppDataManager implements DataManager {
                     type);
             return Flowable.just(medicineList);
         } catch (Exception e) {
-            return Flowable.just(new ArrayList<>());
+            return Flowable.just(null);
         }
     }
 

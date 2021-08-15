@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class DeletePresenter <V extends DeleteMvpView> extends BasePresenter<V> implements DeleteMvpPresenter<V> {
+public class DeletePresenter<V extends DeleteMvpView> extends BasePresenter<V> implements DeleteMvpPresenter<V> {
 
     private static final String TAG = "DeletePresenter";
 
@@ -35,55 +35,55 @@ public class DeletePresenter <V extends DeleteMvpView> extends BasePresenter<V> 
         AtomicLong allDeleteTime = new AtomicLong(System.currentTimeMillis());
         AtomicInteger index = new AtomicInteger(0);
         getCompositeDisposable().add(getDataManager()
-            //Get All Hospital with Limit
-            .getAllHospital(numOfData >= 1000 ? numOfData / 1000 : 1)
+                //Get All Hospital with Limit
+                .getAllHospital(numOfData >= 1000 ? numOfData / 1000 : 1)
                 .concatMap(Flowable::fromIterable)
                 //Get All Medicine with same hospital Id
-                    .concatMap(hospital -> Flowable.zip(
+                .concatMap(hospital -> Flowable.zip(
                         getDataManager().getMedicinesForHospitalId(hospital.id),
                         Flowable.just(hospital),
                         ((medicineList, hospital1) -> medicineList)
-                    ))
+                ))
                 //Delete medicine name with object
                 .concatMap(Flowable::fromIterable)
-                    .concatMap(medicine -> {
-                        if (index.get() < numOfData) {
-                            index.getAndIncrement();
-                            deleteTime.set(System.currentTimeMillis());
-                            return getDataManager().deleteDatabaseMedicine(medicine);
-                        }
-                        return Flowable.just(false);
-                    })
+                .concatMap(medicine -> {
+                    if (index.get() < numOfData) {
+                        index.getAndIncrement();
+                        deleteTime.set(System.currentTimeMillis());
+                        return getDataManager().deleteDatabaseMedicine(medicine);
+                    }
+                    return Flowable.just(false);
+                })
                 .doOnNext(aBoolean -> {
                     if (aBoolean) {
                         deleteDbTime.set(deleteDbTime.longValue() + (System.currentTimeMillis() - deleteTime.longValue()));
                     }
                 })
-            .observeOn(getSchedulerProvider().ui())
-            .subscribe(aBoolean -> {
-                if (!isViewAttached())
-                    return;
-                if (index.get() == numOfData) {
-                    getMvpView().updateNumOfRecordDelete(index.longValue()); //Change number of record
-                    getMvpView().updateDeleteDatabaseTime(deleteDbTime.longValue()); //Change execution time
-                    AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
-                    AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allDeleteTime.longValue());
-                    viewDeleteTime.set(timeElapsed.get() - deleteDbTime.longValue());
-                    getMvpView().updateViewDeleteTime(viewDeleteTime.longValue());
-                    getMvpView().updateAllDeleteTime(timeElapsed.longValue());
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(aBoolean -> {
+                            if (!isViewAttached())
+                                return;
+                            if (index.get() == numOfData) {
+                                getMvpView().updateNumOfRecordDelete(index.longValue()); //Change number of record
+                                getMvpView().updateDeleteDatabaseTime(deleteDbTime.longValue()); //Change execution time
+                                AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
+                                AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allDeleteTime.longValue());
+                                viewDeleteTime.set(timeElapsed.get() - deleteDbTime.longValue());
+                                getMvpView().updateViewDeleteTime(viewDeleteTime.longValue());
+                                getMvpView().updateAllDeleteTime(timeElapsed.longValue());
 
-                    ExecutionTime executionTime = executionTimePreference.getExecutionTime();
-                    executionTime.setDatabaseDeleteTime(deleteDbTime.toString());
-                    executionTime.setAllDeleteTime(timeElapsed.toString());
-                    executionTime.setViewDeleteTime(viewDeleteTime.toString());
-                    executionTime.setNumOfRecordDelete(numOfData.toString());
-                    executionTimePreference.setExecutionTime(executionTime);
+                                ExecutionTime executionTime = executionTimePreference.getExecutionTime();
+                                executionTime.setDatabaseDeleteTime(deleteDbTime.toString());
+                                executionTime.setAllDeleteTime(timeElapsed.toString());
+                                executionTime.setViewDeleteTime(viewDeleteTime.toString());
+                                executionTime.setNumOfRecordDelete(numOfData.toString());
+                                executionTimePreference.setExecutionTime(executionTime);
 
-                    Log.d(TAG, "deleteDatabase: " + index.get());
-                    index.getAndIncrement();
-                }
-            }, throwable -> Log.d(TAG, "deleteDatabase: " + throwable.getMessage())
-            )
+                                Log.d(TAG, "deleteDatabase: " + index.get());
+                                index.getAndIncrement();
+                            }
+                        }, throwable -> Log.d(TAG, "deleteDatabase: " + throwable.getMessage())
+                )
         );
     }
 

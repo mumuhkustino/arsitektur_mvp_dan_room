@@ -34,57 +34,57 @@ public class InsertPresenter<V extends InsertMvpView> extends BasePresenter<V> i
         AtomicLong allInsertTime = new AtomicLong(System.currentTimeMillis());
         //Insert Hospital JSON to DB
         getCompositeDisposable().add(getDataManager()
-            .seedDatabaseHospital(numOfData)
+                .seedDatabaseHospital(numOfData)
                 .concatMap(Flowable::fromIterable)
-                    .concatMap(hospital -> {
-                        insertTime.set(System.currentTimeMillis());
-                        return getDataManager().insertHospital(hospital);
-                    })
+                .concatMap(hospital -> {
+                    insertTime.set(System.currentTimeMillis());
+                    return getDataManager().insertHospital(hospital);
+                })
                 .doOnNext(aBoolean -> {
                     if (aBoolean) {
                         insertDbTime.set(insertDbTime.longValue() + (System.currentTimeMillis() - insertTime.longValue()));
                     }
                 })
-            .observeOn(getSchedulerProvider().ui())
-            .subscribe(aBoolean -> {
-                } , throwable -> getMvpView().onError(throwable.getMessage())
-            )
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(aBoolean -> {
+                        }, throwable -> Log.d("IVM", "insertDatabase 1: " + throwable.getMessage())
+                )
         );
         //Insert Medicine JSON to DB
         getCompositeDisposable().add(getDataManager()
-            .seedDatabaseMedicine(numOfData)
+                .seedDatabaseMedicine(numOfData)
                 .concatMap(Flowable::fromIterable)
-                    .concatMap(medicine -> {
-                        insertTime.set(System.currentTimeMillis());
-                        return getDataManager().insertMedicine(medicine);
-                    })
+                .concatMap(medicine -> {
+                    insertTime.set(System.currentTimeMillis());
+                    return getDataManager().insertMedicine(medicine);
+                })
                 .doOnNext(aBoolean -> {
                     if (aBoolean) {
                         insertDbTime.set(insertDbTime.longValue() + (System.currentTimeMillis() - insertTime.longValue()));
                     }
                 })
-            .observeOn(getSchedulerProvider().ui())
-            .subscribe(aBoolean -> {
-                if (!isViewAttached())
-                    return;
-                if (aBoolean) {
-                    getMvpView().updateNumOfRecordInsert(numOfData);
-                    getMvpView().updateInsertDatabaseTime(insertDbTime.longValue()); //Change execution time
-                    AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
-                    AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allInsertTime.longValue());
-                    viewInsertTime.set(timeElapsed.get() - insertDbTime.longValue());
-                    getMvpView().updateViewInsertTime(viewInsertTime.longValue());
-                    getMvpView().updateAllInsertTime(timeElapsed.longValue());
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(aBoolean -> {
+                            if (!isViewAttached())
+                                return;
+                            if (aBoolean) {
+                                getMvpView().updateNumOfRecordInsert(numOfData);
+                                getMvpView().updateInsertDatabaseTime(insertDbTime.longValue()); //Change execution time
+                                AtomicLong endTime = new AtomicLong(System.currentTimeMillis());
+                                AtomicLong timeElapsed = new AtomicLong(endTime.longValue() - allInsertTime.longValue());
+                                viewInsertTime.set(timeElapsed.get() - insertDbTime.longValue());
+                                getMvpView().updateViewInsertTime(viewInsertTime.longValue());
+                                getMvpView().updateAllInsertTime(timeElapsed.longValue());
 
-                    ExecutionTime executionTime = executionTimePreference.getExecutionTime();
-                    executionTime.setDatabaseInsertTime(insertDbTime.toString());
-                    executionTime.setAllInsertTime(timeElapsed.toString());
-                    executionTime.setViewInsertTime(viewInsertTime.toString());
-                    executionTime.setNumOfRecordInsert(numOfData.toString());
-                    executionTimePreference.setExecutionTime(executionTime);
-                }
-            } , throwable -> Log.d(TAG, "insertDatabase: " + throwable.getMessage())
-            )
+                                ExecutionTime executionTime = executionTimePreference.getExecutionTime();
+                                executionTime.setDatabaseInsertTime(insertDbTime.toString());
+                                executionTime.setAllInsertTime(timeElapsed.toString());
+                                executionTime.setViewInsertTime(viewInsertTime.toString());
+                                executionTime.setNumOfRecordInsert(numOfData.toString());
+                                executionTimePreference.setExecutionTime(executionTime);
+                            }
+                        }, throwable -> Log.d(TAG, "insertDatabase: " + throwable.getMessage())
+                )
         );
     }
 

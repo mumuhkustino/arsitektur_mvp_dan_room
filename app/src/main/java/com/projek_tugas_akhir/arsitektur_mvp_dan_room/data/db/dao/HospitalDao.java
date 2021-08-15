@@ -11,8 +11,6 @@ import com.projek_tugas_akhir.arsitektur_mvp_dan_room.data.db.model.Hospital;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 @Dao
 //Interface untuk model Hospital pada database
 public interface HospitalDao {
@@ -24,13 +22,13 @@ public interface HospitalDao {
     void delete(Hospital hospital);
 
     @Query("SELECT * FROM hospitals WHERE id = :hospitalId") //Annotation untuk select
-    Flowable<Hospital> load(Long hospitalId);
+    Hospital load(Long hospitalId);
 
     @Query("SELECT * FROM hospitals") //Annotation untuk select all
-    Flowable<List<Hospital>> loadAll();
+    List<Hospital> loadAll();
 
     @Query("SELECT * FROM hospitals LIMIT :numOfData") //Annotation untuk select limit
-    Flowable<List<Hospital>> loadList(Long numOfData);
+    List<Hospital> loadList(Long numOfData);
 
     @Update //Annotation untuk update
     void save(Hospital hospital);
